@@ -1,0 +1,44 @@
+# load custom executable functions
+for function in ${ZDOTDIR}/functions/*; do
+  source $function
+done
+
+# extra files in ${ZDOTDIR}/scripts/pre , ${ZDOTDIR}/scripts , and ${ZDOTDIR}/scripts/post
+# these are loaded first, second, and third, respectively.
+_load_settings() {
+  _dir="$1"
+  if [ -d "$_dir" ]; then
+    if [ -d "$_dir/pre" ]; then
+      for config in "$_dir"/pre/**/*~*.zwc(N-.); do
+        . $config
+      done
+    fi
+
+    for config in "$_dir"/**/*(N-.); do
+      case "$config" in
+        "$_dir"/(pre|post)/*|*.zwc)
+          :
+          ;;
+        *)
+          . $config
+          ;;
+      esac
+    done
+
+    if [ -d "$_dir/post" ]; then
+      for config in "$_dir"/post/**/*~*.zwc(N-.); do
+        . $config
+      done
+    fi
+  fi
+}
+_load_settings "${ZDOTDIR}/scripts"
+
+if type brew &>/dev/null; then
+
+    # Git status information for shell prompt
+    [[ -d $(brew --prefix)/opt/gitstatus ]] && \
+        source $(brew --prefix)/opt/gitstatus/gitstatus.prompt.zsh
+fi
+
+[[ -f ${ZDOTDIR}/aliases ]] && source ${ZDOTDIR}/aliases

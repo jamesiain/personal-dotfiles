@@ -1,0 +1,5 @@
+clear() {
+  $($(brew --prefix)/opt/gnu-which/bin/which --skip-functions -- clear)
+
+  zsh ~/.config/zsh/scripts/post/start_at_bottom.zsh
+}

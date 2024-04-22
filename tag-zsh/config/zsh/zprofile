@@ -1,0 +1,4 @@
+fpath+=("$(/home/linuxbrew/.linuxbrew/bin/brew --prefix)/share/zsh/site-functions")
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+export PATH=${HOME}/.local/share/tmux/plugins/t-smart-tmux-session-manager/bin:${PATH}

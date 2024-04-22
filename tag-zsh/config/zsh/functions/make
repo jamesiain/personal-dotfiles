@@ -1,0 +1,42 @@
+# Add color to the output of make
+
+make()
+{
+    local colon_ext="[: ]+ "
+
+    local makecmd_pattern="(^[Mm]ake(\[[0-9]+\])?)"
+    local makecmd_with_ext="${makecmd_pattern}${colon_ext}"
+
+    local path_pattern="(([a-z,A-Z]:)?/[^/:]*)+"
+    local pathnum_pattern="${path_pattern}(:[0-9]+)+"
+
+    local permission_pattern="[Pp]ermission [Dd]enied"
+    local permission_with_prefix="${colon_ext}${permission_pattern}"
+
+    local error_pattern="[^W][Ee]rror"
+    local error_with_ext="${error_pattern}${colon_ext}"
+
+    local warning_pattern="[Ww]arning"
+    local warning_with_ext="${warning_pattern}${colon_ext}"
+
+    local red=$(echo -e "\033[0;31m")
+    local green=$(echo -e "\033[0;32m")
+    local yellow=$(echo -e "\033[0;33m")
+    local cyan=$(echo -e "\033[0;36m")
+    local default=$(echo -e "\033[0m")
+
+    $($(brew --prefix)/opt/gnu-which/bin/which --skip-functions -- make) "$@" 2>&1 \
+            | $(brew --prefix)/opt/gnu-sed/bin/sed -E \
+                -e "/${makecmd_with_ext}/ s%${makecmd_pattern}%${green}&${default}%g" \
+                    \
+                -e "/from[: ]/ s%${pathnum_pattern}%${cyan}&${default}%g" \
+                -e "/[Ii]n function / s%${path_pattern}%${cyan}&${default}%g" \
+                    \
+                -e "/undefined reference/ s%${pathnum_pattern}%${red}&${default}%g" \
+                -e "/${permission_with_prefix}/ s%${permission_pattern}%${red}&${default}%g" \
+                -e "/${error_with_ext}/ {s%${error_pattern}%${red}&${default}%g; s%${pathnum_pattern}%${red}&${default}%g}" \
+                    \
+                -e "/${warning_with_ext}/ {s%${warning_pattern}%${yellow}&${default}%g; s%${pathnum_pattern}%${yellow}&${default}%g}" \
+
+    return ${PIPESTATUS[0]}
+}

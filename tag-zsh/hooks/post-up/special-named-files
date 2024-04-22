@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cd ../../config/zsh
+
+ln -fs zprofile .zprofile
+ln -fs zshrc .zshrc
