@@ -1,0 +1,35 @@
+
+
+# Summarize the commit with 50-characters, or less
+#
+# Note: This first blank line delimits the subject line as required by
+#       several tools. Always capitalize the subject's first character
+#       and do not end with a period.
+#
+# Next, provide a 72-character wrapped detailed description. Each commit
+# should address only one feature or defect. Consider breaking unfocused
+# commits up into smaller targeted ones. Separate paragraphs with blank
+# lines as required.
+#
+# Important questions to answer:
+# - Why is this change necessary?
+# - Were any other solutions attempted and rejected?
+# - Are there any side effects or consequences?
+#
+# Do *NOT* assume that:
+# * The original problem is understood by the reviewer.
+# * The reviewer will have access to an external web service or site.
+# * The source code is self-evident.
+#
+# External links may be included as *additional* reference:
+#   https://chris.beams.io/posts/git-commit/
+#
+# Put references to any associated tickets at the bottom, like this:
+#
+# Resolves: Bug 4001
+# See also: Bug 3521, Bug 3920
+#
+# Add co-authors if you worked on this code with others:
+#
+# Co-authored-by: James MacMillan <jamesiain@me.com>
+# Co-authored-by: Full Name <email@example.com>
