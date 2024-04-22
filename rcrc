@@ -1,2 +1,2 @@
 EXCLUDES="*.md LICENSE"
-TAGS="zsh"
+TAGS="tmux zsh"
