@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+readonly ZSH_CONFIG_DIR="${HOME:-~}/.config/zsh"
+
+if [[ -d ${ZSH_CONFIG_DIR} ]]; then
+  cd ${ZSH_CONFIG_DIR}
+
+  ln -fs zprofile .zprofile
+  ln -fs zshrc .zshrc
+
+  cd -
+fi
